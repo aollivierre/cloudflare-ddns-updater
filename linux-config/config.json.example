@@ -1,0 +1,11 @@
+{
+    "Domain": "yourdomain.com",
+    "Hostname": "subdomain",
+    "ApiToken": "YOUR_CLOUDFLARE_API_TOKEN",
+    "ZoneId": "YOUR_CLOUDFLARE_ZONE_ID",
+    "TTL": 120,
+    "Proxied": false,
+    "LogDir": "/var/log/cloudflare-ddns",
+    "LastIp": "",
+    "LastUpdate": ""
+}

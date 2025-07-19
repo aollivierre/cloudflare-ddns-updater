@@ -7,22 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0] - 2024-07-19
+
 ### Added
 - Linux native implementation using Python and systemd
 - Comprehensive documentation for both platforms
 - Git repository structure with proper branching
-- Installation scripts for Linux
+- Installation scripts for Linux (install.sh, uninstall.sh)
 - Multiple IP detection services with fallback
 - Security hardening for systemd service
+- Migration guide from Windows to Linux
+- Test script for validation
+- Proper .gitignore for multi-platform development
+- Contributing guidelines
 
 ### Changed
 - Migrated from single Windows solution to multi-platform support
-- Improved error handling and logging
-- Updated configuration file structure
+- Improved error handling and logging across platforms
+- Updated configuration file structure for Linux compatibility
+- Restructured repository with branch-based platform separation
 
 ### Fixed
 - API authentication issues with expired tokens
 - Line ending compatibility between Windows and Linux
+- Ubuntu 24.04 pip installation restrictions
+
+### Removed
+- Legacy Docker-based DDNS updater (qdm12)
 
 ## [2.0.0] - 2024-01-19
 

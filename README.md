@@ -94,8 +94,8 @@ systemctl status cloudflare-ddns
 
 ## 🌳 Branches
 
-- `main`: Windows PowerShell implementation
-- `linux-native`: Linux Python implementation
+- `main`: Windows PowerShell implementation (original)
+- `linux-native`: Linux Python implementation (native systemd service)
 
 ## 📁 Project Structure
 
