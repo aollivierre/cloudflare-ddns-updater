@@ -1,0 +1,228 @@
+# Cloudflare DDNS Updater .gitignore
+
+#########################
+# Operating System Files
+#########################
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msm
+*.msp
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+#########################
+# IDE and Editor Files
+#########################
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Notepad++
+*.bak
+
+# Vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+Session.vim
+.netrwhist
+tags
+
+#########################
+# PowerShell Specific
+#########################
+
+# PowerShell modules
+*.psd1.bak
+*.psm1.bak
+
+# PowerShell logs
+*.log
+!CloudflareDDNS.log
+
+# PowerShell temp files
+*.tmp
+
+#########################
+# Python Specific
+#########################
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+.ENV
+.env
+
+# PyCharm
+.idea/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+#########################
+# Project Specific
+#########################
+
+# Configuration files with sensitive data
+**/config.json
+!linux-config/config.json.example
+config/CloudflareDDNS-Config.json
+*.secure
+
+# API tokens and credentials
+*.token
+*.key
+*.pem
+*.pfx
+credentials.json
+secrets.json
+
+# Logs (but keep example logs)
+logs/
+*.log
+!example.log
+/var/log/
+
+# Backup files
+*.backup
+*.bak
+*.old
+*~
+*.orig
+
+# Archive files
+*.tar
+*.tar.gz
+*.zip
+*.7z
+*.rar
+
+# Temporary files
+*.tmp
+*.temp
+.tmp/
+.temp/
+
+# Test output
+test-results/
+coverage/
+
+# Docker files (if not needed in repo)
+docker-compose.override.yml
+.dockerignore
+
+# System service files (local only)
+*.service.local
+
+#########################
+# Documentation Build
+#########################
+
+# Sphinx documentation
+docs/_build/
+docs/_static/
+docs/_templates/
+
+# MkDocs
+site/
+
+#########################
+# Exceptions
+#########################
+
+# Keep these files
+!.gitignore
+!.gitkeep
+!cloudflare-ddns.service
+!linux-config/config.json.example
+!config.expired.json

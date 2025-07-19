@@ -1,0 +1,12 @@
+{
+    "Domain":  "yourdomain.com",
+    "TTL":  120,
+    "LogDir":  "C:\\code\\DDNS\\Archive\\config\\logs",
+    "ApiToken":  "4894a69299c7d0041074aa98741fab2975e43",
+    "Hostname":  "hostname",
+    "ConfigDir":  "C:\\code\\DDNS\\Archive\\config",
+    "LastIp":  "",
+    "EncryptionEnabled":  false,
+    "LastUpdate":  "",
+    "ZoneId":  "YOUR_ZONE_ID"
+}

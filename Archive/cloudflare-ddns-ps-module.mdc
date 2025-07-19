@@ -1,0 +1,96 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# CloudflareDDNS PowerShell Module
+
+This PowerShell module allows you to automatically update Cloudflare DNS records with your current public IP address, functioning as a Dynamic DNS (DDNS) client.
+
+## Features
+
+- Automatically updates Cloudflare DNS records when your public IP changes
+- Supports scheduled tasks to keep your DNS records up-to-date
+- Securely stores your Cloudflare API token (optional encryption)
+- Interactive menu for easy management
+- Works with PowerShell 5.1 and above
+
+## Installation
+
+### Option 1: Install from local folder
+
+1. Download or clone this repository
+2. Copy the `CloudflareDDNS` folder to one of your PowerShell module directories:
+   - `$env:ProgramFiles\PowerShell\Modules` (requires admin privileges)
+   - `$env:UserProfile\Documents\PowerShell\Modules`
+   - `$env:ProgramFiles\WindowsPowerShell\Modules` (PowerShell 5.1, requires admin privileges)
+   - `$env:UserProfile\Documents\WindowsPowerShell\Modules` (PowerShell 5.1)
+
+### Option 2: Use directly from the downloaded location
+
+No installation needed - just import the module from its location:
+
+```powershell
+Import-Module -Path "C:\path\to\CloudflareDDNS"
+```
+
+## Getting Started
+
+1. **Import the module**:
+   ```powershell
+   Import-Module CloudflareDDNS
+   ```
+
+2. **Open the interactive menu**:
+   ```powershell
+   Show-CloudflareDDNSMenu
+   ```
+
+3. **Configure your Cloudflare settings** when prompted:
+   - API Token (with Zone:DNS:Edit and Zone:Zone:Read permissions)
+   - Zone ID (from your Cloudflare dashboard)
+   - Domain name
+   - Hostname (subdomain)
+
+4. **Update DNS record now**:
+   ```powershell
+   Update-CloudflareDNSRecord
+   ```
+
+5. **Install scheduled task** for automatic updates:
+   ```powershell
+   Install-CloudflareDDNSTask
+   ```
+
+## Available Functions
+
+- `Update-CloudflareDNSRecord` - Updates Cloudflare DNS record with current IP
+- `Show-CloudflareDDNSMenu` - Shows interactive menu
+- `Show-CloudflareDDNSStatus` - Shows the current status of DNS records
+- `Install-CloudflareDDNSTask` - Installs a scheduled task
+- `Remove-CloudflareDDNSTask` - Removes the scheduled task
+- `Test-CloudflareAPIConnection` - Tests the API connection
+- `Show-CloudflareDDNSLog` - Shows the log file
+- `Clear-CloudflareDDNSLog` - Clears the log file
+- `Configure-CloudflareAPIToken` - Configures the Cloudflare API token
+- `Edit-CloudflareConfig` - Edits the configuration
+- `Run-CloudflareDDNSTask` - Runs the scheduled task
+- `Toggle-CloudflareDDNSTask` - Enables or disables the scheduled task
+
+## Backward Compatibility
+
+For backward compatibility, you can continue to use the `Update-CloudflareDDNS.ps1` script which is now a wrapper that imports and uses this module.
+
+## Requirements
+
+- PowerShell 5.1 or later
+- Administrator privileges (for creating scheduled tasks)
+- Cloudflare account with API token
+
+## Security
+
+This module supports encrypting sensitive information like your API token. Encryption requires running as the SYSTEM account for maximum security, which is handled automatically when needed.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details. 

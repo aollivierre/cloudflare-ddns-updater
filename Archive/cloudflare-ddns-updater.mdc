@@ -1,0 +1,278 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Cloudflare DDNS Updater for Windows
+
+A PowerShell-based solution for automatically updating Cloudflare DNS records when your public IP address changes. Perfect for home servers, remote access solutions, and any scenario where you need a reliable DNS name pointing to a dynamic IP address.
+
+## Overview
+
+This solution addresses the problem of maintaining correct DNS records when your ISP assigns dynamic public IP addresses. Instead of paying for dedicated DDNS services, this script leverages your existing Cloudflare DNS to keep your records updated. It works seamlessly even through ISP modem reboots, location changes, and network outages.
+
+## Key Features
+
+- **Interactive Menu Interface**: User-friendly terminal interface for management
+- **Automatic IP Detection**: Detects public IP changes using reliable services
+- **Cloudflare API Integration**: Uses Cloudflare's API for secure DNS updates
+- **Scheduled Task Support**: Runs at startup, logon, network changes, and regular intervals
+- **Invisible Mode**: Can run completely hidden with no console window using VBS wrapper
+- **Comprehensive Logging**: Detailed logs with rotation for easy troubleshooting
+- **Self-Path Detection**: Robust script path detection regardless of execution context
+- **Fallback Mechanisms**: Multiple fallbacks for all critical operations
+- **Error Handling**: Graceful handling of network issues and API errors
+- **API Connection Testing**: Verify your Cloudflare credentials without making changes
+- **Status Dashboard**: Quick view of DNS synchronization status and task information
+- **Task Management**: Enable/disable scheduled tasks without removing them
+- **Secure Configuration Storage**: Encrypts sensitive API tokens using Windows DPAPI
+- **External Configuration**: Stores settings in external files for easy version control
+- **Import/Export**: Easily share configurations between systems (without API tokens)
+- **No Hardcoded Credentials**: All sensitive information removed from script code
+
+## Requirements
+
+- Windows 10/11 or Windows Server 2016/2019/2022
+- PowerShell 5.1 or newer
+- Administrator rights (for scheduled task creation)
+- Cloudflare account with:
+  - Domain managed by Cloudflare
+  - API token with Zone:DNS:Edit and Zone:Zone:Read permissions
+
+## Installation
+
+1. **Download the script**: Save `Update-CloudflareDDNS.ps1` to a permanent location
+2. **Run with administrator privileges**: Right-click and "Run with PowerShell"
+3. **Configure settings**: First-time run will create a configuration file with default values
+4. **Enter your Cloudflare information**: Use option 6 to edit your configuration
+5. **Install the task**: Choose option 2 to set up automatic updates
+6. **Run now**: Choose yes to perform an initial update
+
+## Configuration
+
+The script now stores all configuration in external files located in `C:\ProgramData\CloudflareDDNS\`:
+
+- `CloudflareDDNS-Config.json`: Contains general configuration (domain, hostnames, etc.)
+- `CloudflareDDNS-Config.secure`: Contains encrypted sensitive data (API tokens)
+
+You can manage configuration through the menu interface (Option 6: View/Edit configuration):
+
+```powershell
+Configuration Options:
+1: Edit configuration
+2: How to create a Cloudflare API token
+3: Toggle encryption
+4: Export configuration
+5: Import configuration
+B: Back to main menu
+```
+
+This allows you to:
+- Edit all configuration values
+- Get help creating Cloudflare API tokens
+- Enable/disable encryption for sensitive data
+- Export configurations to share with others
+- Import configurations from other systems
+
+## Security Improvements
+
+This latest version includes important security enhancements:
+
+1. **No hardcoded credentials**: API tokens and Zone IDs are no longer stored in the script code
+2. **Encryption**: API tokens are encrypted using Windows Data Protection API
+3. **Safer sharing**: Configuration can be exported without exposing sensitive credentials
+4. **Version control friendly**: Configuration files can be excluded from repositories using .gitignore
+5. **Per-user encryption**: DPAPI encryption is tied to the user account for added protection
+
+These improvements prevent accidental exposure of credentials in script code, make configuration sharing safer, and protect your Cloudflare API tokens from unauthorized access.
+
+## Usage
+
+### Interactive Menu
+
+Run the script without parameters to access the interactive menu:
+
+```powershell
+.\Update-CloudflareDDNS.ps1
+```
+
+Menu options:
+1. **Update DNS record now**: Perform an immediate update
+2. **Install scheduled task**: Configure automatic updates
+3. **View setup log file**: Check installation and setup logs
+4. **View task log file**: Review automatic update logs
+5. **Clear log files**: Maintain and clear logs
+6. **View/Edit configuration**: View and modify current settings
+7. **Open Task Scheduler**: Access Windows Task Scheduler
+8. **Remove scheduled task**: Uninstall the scheduled task
+9. **Run scheduled task**: Manually trigger the scheduled task
+10. **Test API connection**: Verify Cloudflare API credentials
+11. **Show current status**: View synchronization status dashboard
+12. **Enable/Disable task**: Toggle the scheduled task on/off
+
+### Command Line Options
+
+The script supports direct command-line operation:
+
+```powershell
+# Install scheduled task
+.\Update-CloudflareDDNS.ps1 -InstallTask
+
+# Run silent update (for scheduled tasks)
+.\Update-CloudflareDDNS.ps1 -Silent
+
+# Force update even if IP hasn't changed
+.\Update-CloudflareDDNS.ps1 -Silent -ForceUpdate
+
+# View logs
+.\Update-CloudflareDDNS.ps1 -ShowLog
+
+# Clear logs
+.\Update-CloudflareDDNS.ps1 -ClearLog
+```
+
+## How It Works
+
+1. **IP Detection**: The script queries api.ipify.org to determine your current public IP
+2. **Cloudflare Query**: It checks your current DNS record in Cloudflare
+3. **Comparison**: It compares your current public IP with the DNS record
+4. **Update**: If different, it updates the Cloudflare DNS record via API
+5. **Logging**: All actions are logged for troubleshooting
+
+## Key Technical Features
+
+### Secure Configuration Storage
+
+The script implements secure storage for sensitive information:
+
+- API tokens are encrypted using Windows Data Protection API (DPAPI)
+- Encrypted tokens are stored in a separate secure file
+- JSON configuration file contains only non-sensitive information
+- Configuration can be exported with placeholders for sensitive data
+- Encryption can be toggled through the menu interface
+
+### Enhanced Configuration Editor
+
+The script includes a robust configuration editor that:
+- Automatically locates the script file using multiple detection methods
+- Creates a backup before making any changes
+- Allows editing individual parameters while keeping others unchanged
+- Provides built-in guidance for creating Cloudflare API tokens
+
+### Status Dashboard (Option 11)
+
+The status dashboard provides a comprehensive view of your DDNS setup:
+- Current public IP and Cloudflare DNS record status
+- Synchronization status (whether records match)
+- Task status (enabled/disabled)
+- Last and next scheduled run times with human-friendly formatting
+- Task execution results
+
+### API Connection Testing (Option 10)
+
+The API testing feature verifies:
+- Connectivity to Cloudflare API
+- API token validity and permissions
+- Zone ID correctness
+- Existence of the DNS record
+- Provides detailed error feedback for troubleshooting
+
+### VBS Wrapper for Invisible Operation
+
+For invisible operation mode, the script creates a VBS wrapper that launches PowerShell completely hidden, avoiding any console flicker or window appearance:
+
+```vbscript
+' Run PowerShell with 0 window style (hidden)
+' 0 = Hidden window
+' True = don't wait for program to finish
+objShell.Run PowerShellPath & " " & Arguments, 0, False
+```
+
+### Robust Script Path Detection
+
+We implemented a multi-layered approach to script path detection:
+1. Process command line extraction
+2. PowerShell automatic variables (MyInvocation, PSCommandPath, PSScriptRoot)
+3. Current directory fallback
+4. Common locations search (Downloads, Desktop, Documents, Scripts folders)
+5. User prompt with diagnostic information
+
+This ensures the scheduled task works correctly regardless of how the script is executed.
+
+### Multiple Scheduled Task Triggers
+
+The script configures the task with several triggers to maximize reliability:
+- At system startup (with 1-minute delay)
+- At user logon
+- Every minute (for quick network change detection)
+- Every 4 hours (regular check)
+- When network profile changes (EventID 10000/10001)
+- When network adapter disconnects (EventID 4202)
+
+These triggers ensure the DNS record stays current through network changes and system reboots.
+
+## Troubleshooting
+
+### Common Issues
+
+1. **"Cannot determine script path"**
+   - Run the script from its permanent location
+   - Use the configuration editor which has enhanced path detection
+   - If prompted, enter the full path to the script file
+
+2. **"Failed to get public IP"**
+   - Check your internet connection
+   - Verify outbound access to api.ipify.org
+   - Check the task log for specific errors
+
+3. **"Failed to retrieve DNS record"**
+   - Use menu option 10 to test your API connection
+   - Verify API token permissions and expiration
+   - Confirm Zone ID is correct
+
+4. **Task not running automatically**
+   - Use menu option 11 to check task status
+   - Use menu option 12 to ensure the task is enabled
+   - Check Task Scheduler for errors
+   - Review task logs for execution issues
+
+5. **"Failed to decrypt API token"**
+   - This usually occurs when configuration files are copied between computers
+   - DPAPI encryption is tied to the user account
+   - Use option 6 > 5 to import a configuration and enter a new API token
+
+### Log Locations
+
+- Setup logs: `C:\ProgramData\CloudflareDDNS\CloudflareDDNS.log`
+- Task logs: `C:\ProgramData\CloudflareDDNS\CloudflareDDNS-Task.log`
+- Emergency logs: `%TEMP%\CloudflareDDNS.emergency.log`
+- Configuration: `C:\ProgramData\CloudflareDDNS\CloudflareDDNS-Config.json`
+- Secure Config: `C:\ProgramData\CloudflareDDNS\CloudflareDDNS-Config.secure`
+
+## Key Development Findings
+
+During development of this solution, we discovered several important insights:
+
+1. **Enhanced Path Detection Critical**: Finding the script's own path reliably requires a multi-layered approach beyond standard PowerShell variables, especially when executed through scheduled tasks.
+
+2. **PowerShell Window Visibility**: Standard PowerShell `-WindowStyle Hidden` is unreliable as a hidden window may still flash briefly. Using a VBS wrapper provides truly invisible execution.
+
+3. **Configuration Editing**: Providing an in-script configuration editor with proper error handling and backups significantly improves user experience and reduces the chance of syntax errors.
+
+4. **External Configuration**: Moving configuration to external files makes the script more maintainable and allows for easy version control without exposing sensitive information.
+
+5. **Secure Storage**: Using Windows DPAPI for encrypting sensitive information provides a good balance of security and usability without requiring additional passwords.
+
+6. **Status Dashboards**: Providing a quick-view status dashboard with human-friendly time displays (e.g., "2.3 hours ago") enhances usability for less technical users.
+
+7. **Task Management Functions**: Allowing users to trigger, disable, or enable tasks directly from the script reduces the need to use Task Scheduler for common operations.
+
+8. **Cloudflare API Authentication**: Bearer token authentication is more reliable and secure than using Global API Keys.
+
+9. **Network Event Triggers**: Adding event-based triggers for network changes provides much faster response to IP changes than timed intervals alone.
+
+10. **Multiple Fallbacks**: For maximum resilience, implementing multiple fallbacks for critical operations (logging, path detection, etc.) ensures the script continues functioning even when primary methods fail.
+
+11. **Log File Accessibility**: Storing logs in `$env:ProgramData` ensures they're accessible to both user contexts and SYSTEM context when run as a scheduled task.
+
+This solution provides a reliable, robust alternative to commercial DDNS services while leveraging the power of Cloudflare's global DNS infrastructure. 

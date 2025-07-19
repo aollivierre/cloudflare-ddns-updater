@@ -1,0 +1,13 @@
+{
+    "settings": [
+      {
+        "provider": "cloudflare",
+        "zone_identifier": "b5b434545550d4af9e402c2d01516274",
+        "domain": "cloudcommand.org",
+        "host": "rdgateway02",
+        "token": "5zG7JLdxRfFiP6tMrLr1n1-8etX1H3t-mS5VpWhA",
+        "ttl": 120
+      }
+    ]
+  }
+  

@@ -1,0 +1,14 @@
+{
+    "Domain":  "cloudcommand.org",
+    "ZoneId":  "b5b434545550d4af9e402c2d01516274",
+    "LogDir":  "C:\\code\\DDNS\\DDNS\\CloudflareDDNS\\Config\\logs",
+    "ApiToken":  "oQE0gvgNcylzhHhAt9nSMFKtDzzfKSnG61YMPUjA",
+    "Hostname":  "rdgateway02",
+    "TTL":  120,
+    "ConfigDir":  "C:\\code\\DDNS\\DDNS\\CloudflareDDNS\\Config",
+    "LastIp":  "",
+    "Proxied":  false,
+    "LastUpdate":  "",
+    "RecordType":  "A",
+    "EncryptionEnabled":  false
+}
