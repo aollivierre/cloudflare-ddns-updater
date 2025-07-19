@@ -199,9 +199,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/cloudflare-ddns/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/cloudflare-ddns/discussions)
-- **Wiki**: [Project Wiki](https://github.com/yourusername/cloudflare-ddns/wiki)
+- **Issues**: [GitHub Issues](https://github.com/aollivierre/cloudflare-ddns-updater/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/aollivierre/cloudflare-ddns-updater/discussions)
+- **Wiki**: [Project Wiki](https://github.com/aollivierre/cloudflare-ddns-updater/wiki)
 
 ## 🔗 Links
 
